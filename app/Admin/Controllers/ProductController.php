@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Genre;
+use App\Models\Product;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -15,7 +15,7 @@ class ProductController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Genre';
+    protected $title = 'Product';
 
     /**
      * Make a grid builder.
@@ -24,7 +24,7 @@ class ProductController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Genre());
+        $grid = new Grid(new Product());
 
         // $grid->disableCreateButton(); // 作成無効
         // $grid->disableFilter(); // 検索無効
@@ -36,11 +36,19 @@ class ProductController extends AdminController
             // $actions->disableDelete(); // 削除無効
             // $actions->disableEdit(); // 編集無効
             $actions->disableView(); // 詳細表示無効
-            // $actions->append('<a href="'.route('admin.genres.index', ['sale_id'=>$actions->getKey()]).'" class="grid-row-view btn btn-sm btn-default"><i class="fa fa-list-alt"></i> 管理</a>'); // 追加のボタン例
+            // $actions->append('<a href="'.route('admin.products.index', ['sale_id'=>$actions->getKey()]).'" class="grid-row-view btn btn-sm btn-default"><i class="fa fa-list-alt"></i> 管理</a>'); // 追加のボタン例
         });
 
         $grid->column('id', __('Id'));
-        $grid->column('genre_name', __('Genre name'));
+        $grid->column('genre_id', __('Genre id'));
+        $grid->column('name', __('Name'));
+        $grid->column('description', __('Description'));
+        $grid->column('price', __('Price'));
+        $grid->column('image_1', __('Image 1'));
+        $grid->column('image_2', __('Image 2'));
+        $grid->column('image_3', __('Image 3'));
+        $grid->column('image_4', __('Image 4'));
+        $grid->column('sales_status', __('Sales status'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -55,10 +63,18 @@ class ProductController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Genre::findOrFail($id));
+        $show = new Show(Product::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('genre_name', __('Genre name'));
+        $show->field('genre_id', __('Genre id'));
+        $show->field('name', __('Name'));
+        $show->field('description', __('Description'));
+        $show->field('price', __('Price'));
+        $show->field('image_1', __('Image 1'));
+        $show->field('image_2', __('Image 2'));
+        $show->field('image_3', __('Image 3'));
+        $show->field('image_4', __('Image 4'));
+        $show->field('sales_status', __('Sales status'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -72,10 +88,10 @@ class ProductController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Genre());
+        $form = new Form(new Product());
 
-        $id = request(strtolower('Genre'));
-        $model = Genre::find($id);
+        $id = request(strtolower('Product'));
+        $model = Product::find($id);
 
         $form->tools(function (Form\Tools $tools){
             // $tools->disableList(); // リストに戻る無効
@@ -90,7 +106,15 @@ class ProductController extends AdminController
             // $footer->disableSubmit(); // 送信無効
         });
 
-        $form->text('genre_name', __('Genre name'));
+        $form->number('genre_id', __('Genre id'));
+        $form->text('name', __('Name'));
+        $form->textarea('description', __('Description'));
+        $form->number('price', __('Price'));
+        $form->textarea('image_1', __('Image 1'));
+        $form->textarea('image_2', __('Image 2'));
+        $form->textarea('image_3', __('Image 3'));
+        $form->textarea('image_4', __('Image 4'));
+        $form->switch('sales_status', __('Sales status'));
 
         return $form;
     }
