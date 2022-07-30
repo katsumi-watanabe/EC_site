@@ -110,10 +110,22 @@ class ProductController extends AdminController
         $form->text('name', __('Name'));
         $form->textarea('description', __('Description'));
         $form->number('price', __('Price'));
-        $form->textarea('image_1', __('Image 1'));
-        $form->textarea('image_2', __('Image 2'));
-        $form->textarea('image_3', __('Image 3'));
-        $form->textarea('image_4', __('Image 4'));
+        $form->image('image_1', __('Image 1'))->resize(2000, null, function ($constraint) {
+            $constraint->upsize();
+            return $constraint->aspectRatio();
+        })->uniqueName()->removable()->rules('image|max:16284')->help('画像ファイル（jpg/png/gif）を選択してください。ファイルの上限は16MBです。最適: W360xH360px以上');
+        $form->image('image_2', __('Image 2'))->resize(2000, null, function ($constraint) {
+            $constraint->upsize();
+            return $constraint->aspectRatio();
+        })->uniqueName()->removable()->rules('image|max:16284')->help('画像ファイル（jpg/png/gif）を選択してください。ファイルの上限は16MBです。最適: W360xH360px以上');
+        $form->image('image_3', __('Image 3'))->resize(2000, null, function ($constraint) {
+            $constraint->upsize();
+            return $constraint->aspectRatio();
+        })->uniqueName()->removable()->rules('image|max:16284')->help('画像ファイル（jpg/png/gif）を選択してください。ファイルの上限は16MBです。最適: W360xH360px以上');
+        $form->image('image_4', __('Image 4'))->resize(2000, null, function ($constraint) {
+            $constraint->upsize();
+            return $constraint->aspectRatio();
+        })->uniqueName()->removable()->rules('image|max:16284')->help('画像ファイル（jpg/png/gif）を選択してください。ファイルの上限は16MBです。最適: W360xH360px以上');
         $form->switch('sales_status', __('Sales status'));
 
         return $form;

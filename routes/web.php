@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 // Route::view('/', );
-Route::view('/', 'index', ['name' => 'home']);
+Route::view('/', 'index')->name('home');
 // Route::get('/', 'SampleController@showPage');
 // Route::get('/user', [UserController::class, 'index']);
 
