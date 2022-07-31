@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Carbon\Carbon;
 
 class ProductController extends AdminController
 {
@@ -38,19 +39,22 @@ class ProductController extends AdminController
             $actions->disableView(); // 詳細表示無効
             // $actions->append('<a href="'.route('admin.products.index', ['sale_id'=>$actions->getKey()]).'" class="grid-row-view btn btn-sm btn-default"><i class="fa fa-list-alt"></i> 管理</a>'); // 追加のボタン例
         });
-
         $grid->column('id', __('Id'));
         $grid->column('genre.genre_name', __('Genre id'));
         $grid->column('name', __('Name'));
         $grid->column('description', __('Description'));
         $grid->column('price', __('Price'));
-        $grid->column('image_1', __('Image 1'));
-        $grid->column('image_2', __('Image 2'));
-        $grid->column('image_3', __('Image 3'));
-        $grid->column('image_4', __('Image 4'));
-        $grid->column('sales_status', __('Sales status'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('image_1', __('Image 1'))->image();
+        // $grid->column('image_2', __('Image 2'))->image();
+        // $grid->column('image_3', __('Image 3'))->image();
+        // $grid->column('image_4', __('Image 4'))->image();
+        // $grid->column('sales_status', __('Sales status'));
+        $grid->column('created_at', __('Created at'))->display(function () {
+            return Carbon::parse($this->posted_at)->format('Y.m.d h:i');
+        });
+        $grid->column('updated_at', __('Updated at'))->display(function () {
+            return Carbon::parse($this->posted_at)->format('Y.m.d h:i');
+        });
 
         return $grid;
     }
