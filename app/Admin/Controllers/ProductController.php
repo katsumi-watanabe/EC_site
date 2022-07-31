@@ -40,7 +40,7 @@ class ProductController extends AdminController
         });
 
         $grid->column('id', __('Id'));
-        $grid->column('genre_id', __('Genre id'));
+        $grid->column('genre.genre_name', __('Genre id'));
         $grid->column('name', __('Name'));
         $grid->column('description', __('Description'));
         $grid->column('price', __('Price'));
