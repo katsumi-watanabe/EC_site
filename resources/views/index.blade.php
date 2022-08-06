@@ -6,6 +6,7 @@
     <meta name="description" content="Ashion Template">
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ashion | Template</title>
 
@@ -241,9 +242,13 @@
                     @else
                         <div class="product__item__pic set-bg" data-setbg="{{ \Storage::url($product->image_1) }}" alt="{{ $product->name }}">
                     @endif
+                    {{-- タグ3種類 --}}
+                    {{-- <div class="label new">New</div> --}}
+                    {{-- <div class="label">Sale</div> --}}
+                    {{-- <div class="label stockout">out of stock</div> --}}
                         <ul class="product__hover">
-                            <li><a href="#" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="{{ \Storage::url($product->image_1) }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li onclick="like({{$product->id}})"><a><span class="icon_heart_alt"></span></a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                         </ul>
                     </div>
@@ -829,6 +834,7 @@
 <!-- Search End -->
 
 <!-- Js Plugins -->
+<script src="js/like.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.magnific-popup.min.js"></script>
