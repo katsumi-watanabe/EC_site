@@ -23,6 +23,8 @@ Route::get('/dashboard', function () {
 
 // Route::view('/', );
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::post('/like/{productId}', 'App\Http\Controllers\LikeController@store');
+Route::post('/unlike/{productId}', 'App\Http\Controllers\LikeController@destroy');
 // Route::get('/', 'SampleController@showPage');
 // Route::get('/user', [UserController::class, 'index']);
 

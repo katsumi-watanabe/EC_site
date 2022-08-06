@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ashion Template">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -248,7 +249,7 @@
                     {{-- <div class="label stockout">out of stock</div> --}}
                         <ul class="product__hover">
                             <li><a href="{{ \Storage::url($product->image_1) }}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li onclick="like({{$product->id}})"><a><span class="icon_heart_alt"></span></a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                         </ul>
                     </div>
@@ -709,6 +710,23 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.nicescroll.min.js"></script>
 <script src="js/main.js"></script>
+<script>
+    function like(productId) {
+  $.ajax({
+    headers: {
+      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+    url: `/like/${productId}`,
+    type: "POST",
+  })
+    .done(function (data, status, xhr) {
+      console.log(data);
+    })
+    .fail(function (xhr, status, error) {
+      console.log();
+    });
+}
+</script>
 </body>
 
 </html>
