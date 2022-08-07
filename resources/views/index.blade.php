@@ -250,6 +250,7 @@
                         <ul class="product__hover">
                             <li><a href="{{ \Storage::url($product->image_1) }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li onclick="like({{$product->id}})"><a><span class="icon_heart_alt"></span></a></li>
+                            <li onclick="unlike({{$product->id}})"><a><span class="icon_heart_alt"></span></a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                         </ul>
                     </div>
@@ -711,21 +712,46 @@
 <script src="js/jquery.nicescroll.min.js"></script>
 <script src="js/main.js"></script>
 <script>
-    function like(productId) {
+function like(productId) {
   $.ajax({
     headers: {
       "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
     },
     url: `/like/${productId}`,
     type: "POST",
+    dataType: 'json',
   })
+  //通信が成功したとき
     .done(function (data, status, xhr) {
-      console.log(data);
+      console.log('aa');
     })
     .fail(function (xhr, status, error) {
-      console.log();
+      console.log('vv');
     });
-}
+ };
+
+function unlike(productId) {
+  $.ajax({
+    headers: {
+      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+    url: `/unlike/${productId}`,
+    type: "POST",
+    dataType: 'json', //データタイプ
+    data: { "productId": productId, "_method": "DELETE" }
+    })
+    //通信が成功したとき
+    .then((res) => {
+      console.log('成功');
+    })
+    //通信が失敗したとき
+    .fail((error) => {
+      console.log('失敗');
+    });
+ };
+// function like(productId) {
+//   console.log("動いてる？");
+// };
 </script>
 </body>
 
