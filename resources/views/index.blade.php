@@ -721,12 +721,12 @@ function like(productId) {
     type: "POST",
     dataType: 'json',
   })
-  //通信が成功したとき
+    //通信が成功したとき
     .done(function (data, status, xhr) {
-      console.log('aa');
+      console.log('成功');
     })
     .fail(function (xhr, status, error) {
-      console.log('vv');
+      console.log('失敗');
     });
  };
 
@@ -741,17 +741,13 @@ function unlike(productId) {
     data: { "productId": productId, "_method": "DELETE" }
     })
     //通信が成功したとき
-    .then((res) => {
+    .done(function (data, status, xhr) {
       console.log('成功');
     })
-    //通信が失敗したとき
-    .fail((error) => {
+    .fail(function (xhr, status, error) {
       console.log('失敗');
     });
  };
-// function like(productId) {
-//   console.log("動いてる？");
-// };
 </script>
 </body>
 
